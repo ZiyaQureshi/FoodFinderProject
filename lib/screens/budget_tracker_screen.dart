@@ -47,7 +47,14 @@ class _BudgetTrackerScreenState extends State<BudgetTrackerScreen> {
     final cost = double.tryParse(_costController.text.trim());
     final restaurantId = int.tryParse(_restaurantIdController.text.trim()) ?? 1;
 
-    if (mealName.isEmpty || cost == null) return;
+    if (mealName.isEmpty || cost == null || cost <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter valid meal details.'),
+        ),
+      );
+      return;
+    }
 
     await BudgetService.addExpense(
       Meal(
