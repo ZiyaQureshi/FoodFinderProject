@@ -46,6 +46,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
 
   Future<void> _toggleFavorite() async {
     if (restaurant == null) return;
+    final wasAlreadyFavorite = isFavorite;
 
     if (isFavorite) {
       await FavoriteService.removeFavorite(widget.restaurantId);
@@ -61,9 +62,9 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          isFavorite
-              ? 'Added to favorites'
-              : 'Removed from favorites',
+          wasAlreadyFavorite
+              ? 'Removed from favorites'
+              : 'Added to favorites',
         ),
       ),
     );
